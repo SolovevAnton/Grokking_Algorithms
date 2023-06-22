@@ -1,10 +1,10 @@
 package com.solovev;
 
 import org.junit.Test;
+import org.junit.jupiter.api.Assumptions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.solovev.model.OtherAlgorithms.binarySearch;
@@ -14,9 +14,9 @@ import static org.junit.Assert.assertThrows;
 /**
  * Unit test for algorithms
  */
-public class otherAlgorithmsTest {
-    private ThreadLocalRandom random = ThreadLocalRandom.current();
-    private List<Integer>[] testCasesSorted = new List[]{
+public class OtherAlgorithmsTest {
+    private final ThreadLocalRandom random = ThreadLocalRandom.current();
+    private final List<Integer>[] testCasesSorted = new List[]{
             new ArrayList<Integer>(List.of(1)),
             new ArrayList<Integer>(List.of(0, 0)),
             new ArrayList<Integer>(List.of(0, 0, 0)),
@@ -26,9 +26,9 @@ public class otherAlgorithmsTest {
             new ArrayList<Integer>(List.of(-4, -3, -2, -1)),
             new ArrayList<>(List.of(Integer.MIN_VALUE, Integer.MAX_VALUE))
     };
-    private List<Integer> nullList = null;
-    private List<Integer> emptyList = List.of();
-    private List<Integer>[] randomLists = myRandom();
+    private final List<Integer> nullList = null;
+    private final List<Integer> emptyList = List.of();
+    private final List<Integer>[] randomLists = myRandom();
 
     //RandomLists creation
     private List<Integer>[] myRandom() {
@@ -80,6 +80,7 @@ public class otherAlgorithmsTest {
 
     @Test
     public void testNullPointer() {
+        Assumptions.assumingThat(emptyList == null, () -> assertThrows(NullPointerException.class, () -> binarySearch(emptyList, 0)));
         assertThrows(NullPointerException.class, () -> binarySearch(nullList, 0));
     }
 
@@ -92,10 +93,11 @@ public class otherAlgorithmsTest {
             assertEquals(testCase.get(0), testCase.get(foundIndex));
         }
     }
+
     @Test
     public void testBinarySearchFoundCasesLastElement() {
         for (List<Integer> testCase : testCasesSorted) {
-            int indexOfElement = testCase.size() -1;//always last element
+            int indexOfElement = testCase.size() - 1;//always last element
             int numberToLookFor = testCase.get(indexOfElement);
 
             int foundIndex = binarySearch(testCase, numberToLookFor);
