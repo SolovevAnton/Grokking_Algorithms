@@ -1,21 +1,34 @@
 package com.solovev.model;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
-public class OtherAlgorithms{
+public class OtherAlgorithms {
     /**
      * Binary searches for element in the arr
-     * @param arr array to search in SHOULD BE SORTED
+     *
+     * @param arr   array to search in SHOULD BE SORTED
      * @param value to search in this array
-     * @return Optional of value or empty optional if not found
+     * @return index of the element or -1  if not found
      */
-    public static Optional<Integer> binarySearch(List<Integer> arr, Integer value){
-        if(arr.isEmpty()) {
-            return Optional.empty();
+    public static <T extends Comparable<T>> int binarySearch(List<T> arr, T value) {
+
+        int start = 0;
+        int end = arr.size() -1;
+
+        while(start <= end){
+            int mid = (start + end)/2;
+            T midElem = arr.get(mid);
+
+            if(midElem.equals(value)) {
+                return mid;
+            } else if(midElem.compareTo(value) < 0){
+                start = mid+1;
+            } else {
+                end = mid-1;
+            }
         }
-        int indexToLook = arr.size()/2;
-        int elementToLook = arr.get(indexToLook);
-        return Optional.empty();
+        return -1;
     }
 }
