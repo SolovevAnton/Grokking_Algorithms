@@ -2,6 +2,7 @@ package com.solovev;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,25 +29,25 @@ public class OtherAlgorithmsTest {
     };
     private final List<Integer> nullList = null;
     private final List<Integer> emptyList = List.of();
-    private final List<Integer>[] randomLists = myRandom();
+    private static final int NUMBER_OF_RANDOM_TESTS = 500;
+
 
     //RandomLists creation
-    private List<Integer>[] myRandom() {
-        int numberOfLists = 100;
-        List<Integer>[] result = new List[numberOfLists];
+    private List<Integer> myRandom() {
         int maxListLength = 1000;
-        for (int i = 0; i < numberOfLists; i++) {
-            int length = random.nextInt(maxListLength) + 1; //since random lists cannot be empty
-            List<Integer> randomList = new ArrayList<>(length);
-            //fill random list in sorted order
-            randomList.add(random.nextInt());
-            for (int n = 1; n < length; n++) {
-                int numberToAdd = random.nextInt(randomList.get(n - 1), Integer.MAX_VALUE); //guarantees next value is more then prev
-                randomList.add(numberToAdd);
-            }
-            result[i] = randomList;
+
+        List<Integer> randomList = new ArrayList<>();
+        int length = random.nextInt(maxListLength) + 1; // since random lists cannot be empty
+
+        int currentValue = random.nextInt();
+        randomList.add(currentValue);
+
+        for (int n = 1; n < length; n++) {
+            int numberToAdd = random.nextInt(currentValue,Integer.MAX_VALUE);
+            randomList.add(numberToAdd);
+            currentValue = numberToAdd;
         }
-        return result;
+        return randomList;
     }
 
     /**
@@ -71,11 +72,12 @@ public class OtherAlgorithmsTest {
     }
 
     @Test
+    @RepeatedTest(NUMBER_OF_RANDOM_TESTS)
     public void testBinarySearchNotFoundRandom() {
-        for (List<Integer> randomList : randomLists) {
-            int numberToLookFor = notPresentedInList(randomList);
-            assertEquals(-1, binarySearch(randomList, numberToLookFor));
-        }
+        List<Integer> randomList = myRandom();
+        int numberToLookFor = notPresentedInList(randomList);
+        String message = String.format("For list %s and value %s", randomList, numberToLookFor);
+        assertEquals(message, -1, binarySearch(randomList, numberToLookFor));
     }
 
     @Test
@@ -106,15 +108,18 @@ public class OtherAlgorithmsTest {
     }
 
     @Test
+    @RepeatedTest(NUMBER_OF_RANDOM_TESTS)
     public void testBinarySearchFoundCasesRandom() {
-        for (List<Integer> randomList : randomLists) {
-            int indexOfElement = random.nextInt(randomList.size());
-            int numberToLookFor = randomList.get(indexOfElement);
-            int foundIndex = binarySearch(randomList, numberToLookFor);
+        List<Integer> randomList = myRandom();
 
-            assertEquals(randomList.get(indexOfElement), randomList.get(foundIndex));
-        }
+        int indexOfElement = random.nextInt(randomList.size());
+        int numberToLookFor = randomList.get(indexOfElement);
+        int foundIndex = binarySearch(randomList, numberToLookFor);
+
+        String message = String.format("For list %s and value %s", randomList, numberToLookFor);
+        assertEquals(message, randomList.get(indexOfElement), randomList.get(foundIndex));
     }
 }
+
 
 
