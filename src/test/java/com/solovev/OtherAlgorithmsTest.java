@@ -1,12 +1,18 @@
 package com.solovev;
 
-import org.junit.Test;
+
 import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Stream;
 
 import static com.solovev.model.OtherAlgorithms.binarySearch;
 import static org.junit.Assert.assertEquals;
@@ -17,7 +23,7 @@ import static org.junit.Assert.assertThrows;
  */
 public class OtherAlgorithmsTest {
     private final ThreadLocalRandom random = ThreadLocalRandom.current();
-    private final List<Integer>[] testCasesSorted = new List[]{
+    private static final List<Integer>[] testCasesSorted = new List[]{
             new ArrayList<Integer>(List.of(1)),
             new ArrayList<Integer>(List.of(0, 0)),
             new ArrayList<Integer>(List.of(0, 0, 0)),
@@ -32,8 +38,9 @@ public class OtherAlgorithmsTest {
     private static final int NUMBER_OF_RANDOM_TESTS = 500;
 
 
+
     //RandomLists creation
-    private List<Integer> myRandom() {
+    private List<Integer> myRandomSorted() {
         int maxListLength = 1000;
 
         List<Integer> randomList = new ArrayList<>();
@@ -43,7 +50,7 @@ public class OtherAlgorithmsTest {
         randomList.add(currentValue);
 
         for (int n = 1; n < length; n++) {
-            int numberToAdd = random.nextInt(currentValue,Integer.MAX_VALUE);
+            int numberToAdd = random.nextInt(currentValue, Integer.MAX_VALUE);
             randomList.add(numberToAdd);
             currentValue = numberToAdd;
         }
@@ -60,64 +67,67 @@ public class OtherAlgorithmsTest {
         int number = random.nextInt();
         return !list.contains(number) ? number : notPresentedInList(list);
     }
-
-
-    @Test
-    public void testBinarySearchNotFound() {
-        int valueToLookFor = 100;
-        assertEquals(-1, binarySearch(emptyList, valueToLookFor));
-        for (List<Integer> testCase : testCasesSorted) {
-            assertEquals(-1, binarySearch(testCase, valueToLookFor));
+    @Nested
+    class BinarySearchTests {
+        private static Stream<List<Integer>> provideTestCasesSorted() {
+            return Stream.of(testCasesSorted);
         }
-    }
-
-    @Test
-    @RepeatedTest(NUMBER_OF_RANDOM_TESTS)
-    public void testBinarySearchNotFoundRandom() {
-        List<Integer> randomList = myRandom();
-        int numberToLookFor = notPresentedInList(randomList);
-        String message = String.format("For list %s and value %s", randomList, numberToLookFor);
-        assertEquals(message, -1, binarySearch(randomList, numberToLookFor));
-    }
-
-    @Test
-    public void testNullPointer() {
-        Assumptions.assumingThat(emptyList == null, () -> assertThrows(NullPointerException.class, () -> binarySearch(emptyList, 0)));
-        assertThrows(NullPointerException.class, () -> binarySearch(nullList, 0));
-    }
-
-    @Test
-    public void testBinarySearchFoundCasesFirstElement() {
-        for (List<Integer> testCase : testCasesSorted) {
-            int indexOfElement = 0;//always 0 element
-            int numberToLookFor = testCase.get(indexOfElement);
-            int foundIndex = binarySearch(testCase, numberToLookFor);
-            assertEquals(testCase.get(0), testCase.get(foundIndex));
+        @ParameterizedTest
+        @MethodSource("provideTestCasesSorted")
+        public void testBinarySearchNotFound(List<Integer> testCase) {
+            int valueToLookFor = 100;
+            assertEquals(-1, binarySearch(emptyList, valueToLookFor));
+                assertEquals(-1, binarySearch(testCase, valueToLookFor));
         }
-    }
 
-    @Test
-    public void testBinarySearchFoundCasesLastElement() {
-        for (List<Integer> testCase : testCasesSorted) {
-            int indexOfElement = testCase.size() - 1;//always last element
-            int numberToLookFor = testCase.get(indexOfElement);
 
-            int foundIndex = binarySearch(testCase, numberToLookFor);
-            assertEquals(testCase.get(indexOfElement), testCase.get(foundIndex));
+       @RepeatedTest(NUMBER_OF_RANDOM_TESTS)
+        public void testBinarySearchNotFoundRandom() {
+            List<Integer> randomList = myRandomSorted();
+            int numberToLookFor = notPresentedInList(randomList);
+            String message = String.format("For list %s and value %s", randomList, numberToLookFor);
+            assertEquals(message, -1, binarySearch(randomList, numberToLookFor));
         }
-    }
 
-    @Test
-    @RepeatedTest(NUMBER_OF_RANDOM_TESTS)
-    public void testBinarySearchFoundCasesRandom() {
-        List<Integer> randomList = myRandom();
+        @Test
+        public void testNullPointer() {
+            Assumptions.assumingThat(emptyList == null, () -> assertThrows(NullPointerException.class, () -> binarySearch(emptyList, 0)));
+            assertThrows(NullPointerException.class, () -> binarySearch(nullList, 0));
+        }
 
-        int indexOfElement = random.nextInt(randomList.size());
-        int numberToLookFor = randomList.get(indexOfElement);
-        int foundIndex = binarySearch(randomList, numberToLookFor);
+        @Test
+        public void testBinarySearchFoundCasesFirstElement() {
+            for (List<Integer> testCase : testCasesSorted) {
+                int indexOfElement = 0;//always 0 element
+                int numberToLookFor = testCase.get(indexOfElement);
+                int foundIndex = binarySearch(testCase, numberToLookFor);
+                assertEquals(testCase.get(0), testCase.get(foundIndex));
+            }
+        }
 
-        String message = String.format("For list %s and value %s", randomList, numberToLookFor);
-        assertEquals(message, randomList.get(indexOfElement), randomList.get(foundIndex));
+        @Test
+        public void testBinarySearchFoundCasesLastElement() {
+            for (List<Integer> testCase : testCasesSorted) {
+                int indexOfElement = testCase.size() - 1;//always last element
+                int numberToLookFor = testCase.get(indexOfElement);
+
+                int foundIndex = binarySearch(testCase, numberToLookFor);
+                assertEquals(testCase.get(indexOfElement), testCase.get(foundIndex));
+            }
+        }
+
+
+        @RepeatedTest(NUMBER_OF_RANDOM_TESTS)
+        public void testBinarySearchFoundCasesRandom() {
+            List<Integer> randomList = myRandomSorted();
+
+            int indexOfElement = random.nextInt(randomList.size());
+            int numberToLookFor = randomList.get(indexOfElement);
+            int foundIndex = binarySearch(randomList, numberToLookFor);
+
+            String message = String.format("For list %s and value %s", randomList, numberToLookFor);
+            assertEquals(message, randomList.get(indexOfElement), randomList.get(foundIndex));
+        }
     }
 }
 

@@ -15,18 +15,18 @@ public class OtherAlgorithms {
     public static <T extends Comparable<T>> int binarySearch(List<T> arr, T value) {
 
         int start = 0;
-        int end = arr.size() -1;
+        int end = arr.size() - 1;
 
-        while(start <= end){
-            int mid = (start + end)/2;
+        while (start <= end) {
+            int mid = (start + end) / 2;
             T midElem = arr.get(mid);
 
-            if(midElem.equals(value)) {
+            if (midElem.equals(value)) {
                 return mid;
-            } else if(midElem.compareTo(value) < 0){
-                start = mid+1;
+            } else if (midElem.compareTo(value) < 0) {
+                start = mid + 1;
             } else {
-                end = mid-1;
+                end = mid - 1;
             }
         }
         return -1;
