@@ -1,10 +1,8 @@
-package com.solovev.model;
+package com.solovev.search;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
-public class OtherAlgorithms {
+public class BinarySearch {
     /**
      * Binary searches for element in the arr
      *

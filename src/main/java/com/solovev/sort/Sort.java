@@ -1,4 +1,4 @@
-package com.solovev.model.sort;
+package com.solovev.sort;
 
 import java.util.List;
 

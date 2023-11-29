@@ -1,4 +1,4 @@
-package com.solovev;
+package com.solovev.search;
 
 
 import org.junit.jupiter.api.Assumptions;
@@ -7,21 +7,20 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
-import static com.solovev.model.OtherAlgorithms.binarySearch;
+import static com.solovev.search.BinarySearch.binarySearch;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
 /**
  * Unit test for algorithms
  */
-public class OtherAlgorithmsTest {
+public class BinarySearchTest {
     private final ThreadLocalRandom random = ThreadLocalRandom.current();
     private static final List<Integer>[] testCasesSorted = new List[]{
             new ArrayList<Integer>(List.of(1)),
