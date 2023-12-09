@@ -1,8 +1,8 @@
 package com.solovev.sort;
 
-class SelectionSortTest extends AbstractSortTest{
+public class MergeSortTest extends AbstractSortTest {
     @Override
     protected Sort<Integer> provideSorter() {
-        return new SelectionSort<>();
+        return new MergeSort<>();
     }
 }

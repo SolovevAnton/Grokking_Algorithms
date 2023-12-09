@@ -1,8 +1,5 @@
 package com.solovev;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Prints necessary steps to bould tower of hanoi for n
  */
@@ -10,9 +7,7 @@ public class TowerOfHanoi {
     private static final String message = "Disk %d moved from %c to %c\n";
 
     public static void findMoves(int numberOfDisks, char tower1, char tower2, char tower3) {
-        if (numberOfDisks == 1) {
-            printMessage(numberOfDisks, tower1, tower3);
-        } else {
+        if (numberOfDisks >= 1) {
             int previousDisc = numberOfDisks - 1;
             findMoves(previousDisc, tower1, tower3, tower2);
             printMessage(numberOfDisks, tower1, tower3);
