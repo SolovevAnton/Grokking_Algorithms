@@ -1,5 +1,6 @@
 package com.solovev;
 
+import com.solovev.algorithms.EuclideanAlgorithm;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

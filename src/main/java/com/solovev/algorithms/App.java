@@ -1,8 +1,4 @@
-package com.solovev;
-
-import com.solovev.search.BinarySearch;
-
-import java.util.*;
+package com.solovev.algorithms;
 
 /**
  * Hello world!

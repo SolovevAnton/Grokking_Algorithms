@@ -1,7 +1,6 @@
-package com.solovev.sort;
+package com.solovev.algorithms.sort;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * Interface that will define every search algorithm

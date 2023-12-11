@@ -1,4 +1,4 @@
-package com.solovev.search;
+package com.solovev.algorithms.search;
 
 import java.util.List;
 

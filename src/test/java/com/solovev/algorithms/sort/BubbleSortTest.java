@@ -1,4 +1,4 @@
-package com.solovev.sort;
+package com.solovev.algorithms.sort;
 
 class BubbleSortTest extends AbstractSortTest{
     @Override

@@ -1,4 +1,4 @@
-package com.solovev.search;
+package com.solovev.algorithms.search;
 
 
 import org.junit.jupiter.api.Assumptions;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
-import static com.solovev.search.BinarySearch.binarySearch;
+import static com.solovev.algorithms.search.BinarySearch.binarySearch;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 

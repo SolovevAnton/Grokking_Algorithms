@@ -1,4 +1,4 @@
-package com.solovev.sort;
+package com.solovev.algorithms.sort;
 
 import java.util.ArrayList;
 import java.util.Collections;

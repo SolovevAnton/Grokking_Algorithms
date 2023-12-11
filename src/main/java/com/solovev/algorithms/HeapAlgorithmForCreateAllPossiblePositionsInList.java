@@ -1,4 +1,4 @@
-package com.solovev;
+package com.solovev.algorithms;
 
 import lombok.Data;
 

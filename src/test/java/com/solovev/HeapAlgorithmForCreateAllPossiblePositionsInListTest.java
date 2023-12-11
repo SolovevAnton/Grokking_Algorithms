@@ -2,11 +2,10 @@ package com.solovev;
 
 import org.junit.jupiter.api.Test;
 
-import java.net.InetSocketAddress;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static com.solovev.HeapAlgorithmForCreateAllPossiblePositionsInList.*;
+import static com.solovev.algorithms.HeapAlgorithmForCreateAllPossiblePositionsInList.*;
 
 class HeapAlgorithmForCreateAllPossiblePositionsInListTest {
 
