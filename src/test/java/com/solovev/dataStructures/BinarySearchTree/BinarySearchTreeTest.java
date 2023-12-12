@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 import org.w3c.dom.ls.LSOutput;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -111,7 +113,8 @@ class BinarySearchTreeTest {
             assertEquals("cherry", foundNode.get().getData());
         }
     }
-    @Disabled
+
+    @Disabled //before delete implimentation
     @Nested
     public class RemoveMethods {
         @Test
@@ -133,6 +136,7 @@ class BinarySearchTreeTest {
             Optional<BinarySearchTreeNode<Integer>> removedNode = root.find(3);
             assertFalse(removedNode.isPresent());
         }
+
         @Test
         void removeElementRight() {
             BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
@@ -264,4 +268,208 @@ class BinarySearchTreeTest {
             return isBinarySearchTree(node.getLeftChild()) && isBinarySearchTree(node.getRightChild());
         }
     }
+
+    @Nested
+    public class minMaxTests {
+        @Test
+        void findMinInTreeWithMultipleNodes() {
+            BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+
+            tree.insert(3);
+            tree.insert(7);
+            tree.insert(2);
+            tree.insert(4);
+            tree.insert(6);
+            tree.insert(8);
+
+            Integer min = tree.min();
+
+            assertNotNull(min);
+            assertEquals(2, min);
+        }
+
+        @Test
+        void findMaxInTreeWithMultipleNodes() {
+            BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+
+            tree.insert(3);
+            tree.insert(7);
+            tree.insert(2);
+            tree.insert(4);
+            tree.insert(6);
+            tree.insert(8);
+
+            Integer max = tree.max();
+
+            assertNotNull(max);
+            assertEquals(8, max);
+        }
+
+        @Test
+        void findMinInTreeWithOnlyRoot() {
+            BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+
+            Integer min = tree.min();
+
+            assertNotNull(min);
+            assertEquals(5, min);
+        }
+
+        @Test
+        void findMaxInTreeWithOnlyRoot() {
+            BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+
+            Integer max = tree.max();
+
+            assertNotNull(max);
+            assertEquals(5, max);
+        }
+    }
+
+    @Nested
+    public class Traversing {
+        @Nested
+        public class TraverseInOrderTests {
+            @Test
+            void traverseInOrderWithOnlyRoot() {
+                BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
+                BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+
+                List<Integer> result = tree.traverseInOrder();
+
+                assertEquals(Arrays.asList(5), result);
+            }
+
+            @Test
+            void traverseInOrderWithTwoNodes() {
+                BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
+                BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+
+                tree.insert(3);
+
+                List<Integer> result = tree.traverseInOrder();
+
+                assertEquals(Arrays.asList(3, 5), result);
+            }
+
+            @Test
+            void traverseInOrderWithOnlyLeftSide() {
+                BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
+                BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+
+                tree.insert(3);
+                tree.insert(2);
+                tree.insert(4);
+
+                List<Integer> result = tree.traverseInOrder();
+
+                assertEquals(Arrays.asList(2, 3, 4, 5), result);
+            }
+
+            @Test
+            void traverseInOrderWithOnlyRightSide() {
+                BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
+                BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+
+                tree.insert(7);
+                tree.insert(6);
+                tree.insert(8);
+
+                List<Integer> result = tree.traverseInOrder();
+
+                assertEquals(Arrays.asList(5, 6, 7, 8), result);
+            }
+
+            @Test
+            void traverseInOrderWithThreeLevels() {
+                BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
+                BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+
+                tree.insert(3);
+                tree.insert(7);
+                tree.insert(2);
+                tree.insert(4);
+                tree.insert(6);
+                tree.insert(8);
+
+                List<Integer> result = tree.traverseInOrder();
+
+                assertEquals(Arrays.asList(2, 3, 4, 5, 6, 7, 8), result);
+            }
+        }
+        @Nested
+        public class PreOrderTesting{
+            @Test
+            void traversePreOrderWithOnlyRoot() {
+                BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
+                BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+
+                List<Integer> result = tree.traversePreOrder();
+
+                assertEquals(Arrays.asList(5), result);
+            }
+
+            @Test
+            void traversePreOrderWithTwoNodes() {
+                BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
+                BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+
+                tree.insert(3);
+
+                List<Integer> result = tree.traversePreOrder();
+
+                assertEquals(Arrays.asList(5, 3), result);
+            }
+
+            @Test
+            void traversePreOrderWithOnlyLeftSide() {
+                BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
+                BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+
+                tree.insert(3);
+                tree.insert(2);
+                tree.insert(4);
+
+                List<Integer> result = tree.traversePreOrder();
+
+                assertEquals(Arrays.asList(5, 3, 2, 4), result);
+            }
+
+            @Test
+            void traversePreOrderWithOnlyRightSide() {
+                BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
+                BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+
+                tree.insert(7);
+                tree.insert(6);
+                tree.insert(8);
+
+                List<Integer> result = tree.traversePreOrder();
+
+                assertEquals(Arrays.asList(5, 7, 6, 8), result);
+            }
+
+            @Test
+            void traversePreOrderWithThreeLevels() {
+                BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
+                BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+
+                tree.insert(3);
+                tree.insert(7);
+                tree.insert(2);
+                tree.insert(4);
+                tree.insert(6);
+                tree.insert(8);
+
+                List<Integer> result = tree.traversePreOrder();
+
+                assertEquals(Arrays.asList(5, 3, 2, 4, 7, 6, 8), result);
+            }
+        }
+    }
+
 }
