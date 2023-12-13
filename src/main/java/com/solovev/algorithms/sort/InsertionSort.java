@@ -14,7 +14,7 @@ public class InsertionSort<T extends Comparable<T>> implements Sort<T> {
         int size = unsorted.size();
         for (int i = 0; i < size; i++) {
             currentIndex = i;
-            while (currentIndex > 0 && isCurrentSmaller()) {
+            while (currentIndex > 0 && isCurrentSmallerThanPrevious()) {
                 Collections.swap(result,currentIndex - 1,currentIndex);
                 currentIndex--;
             }
@@ -22,7 +22,7 @@ public class InsertionSort<T extends Comparable<T>> implements Sort<T> {
         return result;
     }
 
-    private boolean isCurrentSmaller() {
+    private boolean isCurrentSmallerThanPrevious() {
         return result.get(currentIndex).compareTo(result.get(currentIndex-1)) < 0;
     }
 }

@@ -8,17 +8,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class EuclideanAlgorithmTest {
     @Test
     void testGCDWithTwoPrimes() {
-        assertEquals(1, EuclideanAlgorithm.findGCD(13, 17));
+        assertEquals(1, EuclideanAlgorithm.findGCD(17, 13));
     }
 
     @Test
     void testGCDWithZeroes() {
-        assertEquals(5, EuclideanAlgorithm.findGCD(0, 5));
         assertEquals(7, EuclideanAlgorithm.findGCD(7, 0));
         assertEquals(0, EuclideanAlgorithm.findGCD(0, 0));
     }
     @Test
-    void testGCDWithWrondOrder() {
+    void testGCDWithWrongOrder() {
         assertThrows(IllegalArgumentException.class,()-> EuclideanAlgorithm.findGCD(0, 5));
         assertThrows(IllegalArgumentException.class,()-> EuclideanAlgorithm.findGCD(4, 8));
     }
