@@ -1,10 +1,10 @@
 package com.solovev.algorithms;
 
-import lombok.Data;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
+/**
+ * Provides lists consting of all possible combinations of elements order from the given list
+ */
 public class HeapAlgorithmForCreateAllPossiblePositionsInList {
 
     public static<T> Set<List<T>> getAllRecursivePermutations(List<T> elements) {

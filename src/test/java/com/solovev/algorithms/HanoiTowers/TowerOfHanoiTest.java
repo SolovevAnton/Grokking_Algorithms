@@ -1,6 +1,5 @@
-package com.solovev;
+package com.solovev.algorithms.HanoiTowers;
 
-import com.solovev.algorithms.TowerOfHanoi;
 import org.junit.jupiter.api.Test;
 
 class TowerOfHanoiTest {

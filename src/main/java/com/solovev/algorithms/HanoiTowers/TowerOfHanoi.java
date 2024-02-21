@@ -1,4 +1,4 @@
-package com.solovev.algorithms;
+package com.solovev.algorithms.HanoiTowers;
 
 /**
  * Prints necessary steps to bould tower of hanoi for n
