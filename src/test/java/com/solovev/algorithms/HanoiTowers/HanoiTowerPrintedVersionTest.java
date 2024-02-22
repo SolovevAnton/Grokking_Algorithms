@@ -31,6 +31,10 @@ class HanoiTowerPrintedVersionTest {
     public void move4(){
         callHanoiFor(4);
     }
+    @Test
+    public void move5(){
+        callHanoiFor(5);
+    }
     private void callHanoiFor(int n){
         new HanoiTowerPrintedVersion(n).findMoves();
     }
