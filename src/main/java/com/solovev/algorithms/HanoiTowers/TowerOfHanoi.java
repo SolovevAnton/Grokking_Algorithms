@@ -20,10 +20,10 @@ public class TowerOfHanoi {
     }
     public static void findMoves(int numberOfDisks, char tower1, char tower2, char tower3) {
         if (numberOfDisks >= 1) {
-            int previousDisc = numberOfDisks - 1;
-            findMoves(previousDisc, tower1, tower3, tower2);
+            int previousDisk = numberOfDisks - 1;
+            findMoves(previousDisk, tower1, tower3, tower2);
             moves.add(String.format("Disk %d moved from %c to %c", numberOfDisks, tower1, tower3));
-            findMoves(previousDisc,tower2,tower1,tower3);
+            findMoves(previousDisk,tower2,tower1,tower3);
         }
     }
 }
