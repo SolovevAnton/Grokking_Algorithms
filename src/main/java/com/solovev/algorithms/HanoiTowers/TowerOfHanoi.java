@@ -12,7 +12,7 @@ public class TowerOfHanoi {
     private static final List<String> moves = new ArrayList<>();
     public static void main(String...args){
         int numberOfDisks = 4; //complexity #1 (O(1))
-        findMoves(numberOfDisks,'A','B','C'); //complexity#2 (O(n^2))
+        findMoves(numberOfDisks,'A','B','C'); //complexity#2 (O(2^n))
         //точно все знают реализацию size() в ArrayList?
         System.out.println("Планируемое количество перемещений: " + moves.size()); //complexity#3 (O(1))
         moves.forEach(System.out::println); //complexity#4 (O(n))
